@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="rmitraining" default="all">
+
+
+    <property file="rmitrainingAnt.properties"/>
+    <!-- Uncomment the following property if no tests compilation is needed -->
+    <!--
+   <property name="skip.tests" value="true"/>
+    -->
+
+    <!-- Compiler options -->
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="128m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/SCCS/**"/>
+        <exclude name="**/RCS/**"/>
+        <exclude name="**/rcs/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.pyc/**"/>
+        <exclude name="**/.pyo/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="**/*.hprof/**"/>
+        <exclude name="**/_svn/**"/>
+        <exclude name="**/.hg/**"/>
+        <exclude name="**/*.lib/**"/>
+        <exclude name="**/*~/**"/>
+        <exclude name="**/__pycache__/**"/>
+        <exclude name="**/.bundle/**"/>
+        <exclude name="**/*.rbc/**"/>
+    </patternset>
+    <patternset id="library.patterns">
+        <include name="*.war"/>
+        <include name="*.ear"/>
+        <include name="*.apk"/>
+        <include name="*.zip"/>
+        <include name="*.swc"/>
+        <include name="*.egg"/>
+        <include name="*.jar"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <include name="**/?*.properties"/>
+        <include name="**/?*.xml"/>
+        <include name="**/?*.gif"/>
+        <include name="**/?*.png"/>
+        <include name="**/?*.jpeg"/>
+        <include name="**/?*.jpg"/>
+        <include name="**/?*.html"/>
+        <include name="**/?*.dtd"/>
+        <include name="**/?*.tld"/>
+        <include name="**/?*.ftl"/>
+    </patternset>
+
+    <!-- JDK definitions -->
+
+    <property name="jdk.bin.sdk_7.60" value="${jdk.home.sdk_7.60}/bin"/>
+    <path id="jdk.classpath.sdk_7.60">
+        <fileset dir="${jdk.home.sdk_7.60}">
+            <include name="jre/lib/alt-rt.jar"/>
+            <include name="jre/lib/charsets.jar"/>
+            <include name="jre/lib/deploy.jar"/>
+            <include name="jre/lib/javaws.jar"/>
+            <include name="jre/lib/jce.jar"/>
+            <include name="jre/lib/jfr.jar"/>
+            <include name="jre/lib/jfxrt.jar"/>
+            <include name="jre/lib/jsse.jar"/>
+            <include name="jre/lib/management-agent.jar"/>
+            <include name="jre/lib/plugin.jar"/>
+            <include name="jre/lib/resources.jar"/>
+            <include name="jre/lib/rt.jar"/>
+            <include name="jre/lib/ext/access-bridge.jar"/>
+            <include name="jre/lib/ext/dnsns.jar"/>
+            <include name="jre/lib/ext/jaccess.jar"/>
+            <include name="jre/lib/ext/localedata.jar"/>
+            <include name="jre/lib/ext/sunec.jar"/>
+            <include name="jre/lib/ext/sunjce_provider.jar"/>
+            <include name="jre/lib/ext/sunmscapi.jar"/>
+            <include name="jre/lib/ext/sunpkcs11.jar"/>
+            <include name="jre/lib/ext/zipfs.jar"/>
+        </fileset>
+    </path>
+
+    <property name="project.jdk.home" value="${jdk.home.sdk_7.60}"/>
+    <property name="project.jdk.bin" value="${jdk.bin.sdk_7.60}"/>
+    <property name="project.jdk.classpath" value="jdk.classpath.sdk_7.60"/>
+
+    <!-- Modules -->
+
+
+    <!-- Module RMItraining -->
+
+    <dirname property="module.rmitraining.basedir" file="${ant.file}"/>
+
+
+    <property name="module.jdk.home.rmitraining" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.rmitraining" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.rmitraining" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.rmitraining" value="${compiler.args}"/>
+
+    <property name="rmitraining.output.dir" value="${module.rmitraining.basedir}/out/production/RMItraining"/>
+    <property name="rmitraining.testoutput.dir" value="${module.rmitraining.basedir}/out/test/RMItraining"/>
+    <property name="rmitrainig.out.server.dir" value="${rmitraining.output.dir}/rmipkg/server"/>
+    <property name="rmitrainig.out.client.dir" value="${rmitraining.output.dir}/rmipkg/client"/>
+    <property name="server.jar.mainclass" value="rmipkg.server.ServiceRMIImpl"/>
+    <!--<property name="rmitrainig.out.server.pkg" value=""> -->
+
+
+    <path id="rmitraining.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="rmitraining.module.production.classpath">
+        <path refid="${module.jdk.classpath.rmitraining}"/>
+    </path>
+
+    <path id="rmitraining.runtime.production.module.classpath">
+        <pathelement location="${rmitraining.output.dir}"/>
+    </path>
+
+    <path id="rmitraining.module.classpath">
+        <path refid="${module.jdk.classpath.rmitraining}"/>
+        <pathelement location="${rmitraining.output.dir}"/>
+    </path>
+
+    <path id="rmitraining.runtime.module.classpath">
+        <pathelement location="${rmitraining.testoutput.dir}"/>
+        <pathelement location="${rmitraining.output.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.rmitraining">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.rmitraining">
+        <patternset refid="excluded.from.module.rmitraining"/>
+    </patternset>
+
+    <path id="rmitraining.module.sourcepath">
+        <dirset dir="${module.rmitraining.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.rmitraining"
+            depends="compile.module.rmitraining.production,compile.module.rmitraining.tests"
+            description="Compile module RMItraining"/>
+
+    <target name="compile.module.rmitraining.production" description="Compile module RMItraining; production classes">
+        <mkdir dir="${rmitraining.output.dir}"/>
+        <javac destdir="${rmitraining.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.rmitraining}/javac">
+            <compilerarg line="${compiler.args.rmitraining}"/>
+            <bootclasspath refid="rmitraining.module.bootclasspath"/>
+            <classpath refid="rmitraining.module.production.classpath"/>
+            <src refid="rmitraining.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.rmitraining"/>
+        </javac>
+
+        <copy todir="${rmitraining.output.dir}">
+            <fileset dir="${module.rmitraining.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.rmitraining.tests" depends="compile.module.rmitraining.production"
+            description="compile module RMItraining; test classes" unless="skip.tests"/>
+
+    <target name="compile.RMIstub" description="use rmic command">
+        <rmic classname="rmipkg.server.ServiceRMIImpl"
+              base="${rmitraining.output.dir}"/>
+    </target>
+
+    <target name="copy.RMIstub" depends="compile.RMIstub" description="copy stub to client output folder">
+        <copy file="${rmitrainig.out.server.dir}/ServiceRMIImpl_Stub.class"
+              tofile="${rmitrainig.out.client.dir}/ServiceRMIImpl_Stub.class"/>
+    </target>
+
+    <target name="copy.ServiceRMI" description="copy ServiceRMI.class to client output folder">
+        <copy file="${rmitrainig.out.server.dir}/ServiceRMI.class"
+              tofile="${rmitrainig.out.client.dir}/ServiceRMI.class"/>
+    </target>
+    <target name="copy.SimpleObj" description="copy SimpleObject.class to client output folder">
+        <copy file="${rmitrainig.out.server.dir}/SimpleObj.class"
+              tofile="${rmitrainig.out.client.dir}/SimpleObj.class"/>
+    </target>
+
+    <target name="clean.module.rmitraining" description="cleanup module">
+        <delete dir="${rmitraining.output.dir}"/>
+        <delete dir="${rmitraining.testoutput.dir}"/>
+    </target>
+
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean" depends="clean.module.rmitraining" description="cleanup all"/>
+
+    <target name="build.modules" depends="init, clean, compile.module.rmitraining" description="build all modules"/>
+
+    <target name="compile.RMI"
+            depends="build.modules, copy.RMIstub, copy.ServiceRMI,  compile.RMIstub ,  copy.SimpleObj"
+            description="make RMI _stub and _scel files for ServiceImplementation"/>
+
+    <target name="make.jar" depends="compile.RMI" description=" Make a JAR file">
+        <jar destfile="${rmitrainig.out.server.dir}/ServerJAR.jar" basedir="${rmitraining.output.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="server.jar.mainclass"/>
+            </manifest>
+            <fileset dir="${rmitrainig.out.server.dir}">
+                <include name="*.class"/>
+            </fileset>
+        </jar>
+    </target>
+    <target name="all" depends="compile.RMI, make.jar" description="build all"/>
+</project>
